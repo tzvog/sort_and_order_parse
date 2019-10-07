@@ -1,0 +1,105 @@
+tzvog 
+
+================
+File Description
+================
+
+DirectoryProcessor.java - the class to hold the main function to run the function
+FilterAndOrderFiles.java - the class filter and order the classes to print them
+ParseData.java - loads data from the file and creates sub sections to analyze
+SubSectionHolder.java - holds a sub section
+
+TypeOneException.java - a class for throwing a type one exception
+InvalidUsage.java - a class for an invalid usage exception
+IOException.java - a class for an io exception
+MissingFilter.java - a class for a missing filter exception
+MissingOrder.java - a class for a missing order exception
+TypeTwoExceptions.java - an abstract class for all type two exceptions
+
+AllFilter.java - a class of a filter for everything
+FilterFactory.java - a singleton class factory to produce filters
+NotFilter.java - a filter to do the opposite affect of the filter
+ContainsFilter.java - a filter to check if the file name contains a string
+FileFilter.java - a filter to check if the file name equals the filter
+NameFilter.java - an abstract class for all filters that deal with the file name
+PrefixFilter.java - a filter to check if the file starts with a certain value
+SuffixFilter.java - a filter to check if the file ends with a certain value
+ExecutableFilter.java - a filter to check if the file is executable
+HiddenFilter.java - a filter to check if the file is hidden
+PermissionsFilter.java - an abstract class for any filter that deals with permissions
+WritableFilter.java - a filter to check if the file is writable
+BetweenFilter.java - a filter to check if the size of a file is between certain values
+GreaterThanFilter.java - a filter to check if the file size is greater than a certain size
+SizeFilter.java - an interface for filters that deal with file size
+SmallerThanFilter.java - a filter that filters files less than a certain size
+
+AbsCompare.java - a comparator based upon the file names
+OrderFactory.java - a singleton factory that creates comparators
+ReverseCompare.java - a class to reverse the effect of the comparator
+SizeCompare.java - a comparator to compare based on size
+TypeCompare.java - a comparator to compare by type
+
+SortToolBox.java - a singleton to work with sorting tool box
+TypeOneErrorToolBox.java - a singleton to work with type one errors tool box
+TypeTwoErrorToolBox.java - a singleton to work with type two errors tool box
+
+=============================
+=          Design           =
+=============================
+my whole class sits under the fileprocessing
+    exceptions -  all exceptions sit in there own package so any time we reach for an
+    exception they are all put together giving me the option latter to reuse them in a different project
+    filter -  filters sit in there own package made to be used in further projects the package comes with a
+    factory of a singleton type and a reversing type to reverse the effect of the filter
+    Orders - orders sit in there own package each order comes of the comparator type making it easier to
+    order so for future use we can use them on javas own sorting algorithms it comes with a factory to create
+    a filter to be used
+    orders - all orders will sit in there own package for further uses they have a factory to create a oder
+    they are of type comparator<Path> made to compare to sort them all by a certain factor
+    toolboxes - they are classes designed specifically to help us with side problems they will many times
+    find errors for us and raise them
+    DirectoryProcsesor - a main class to receive the arguments and run the whole function
+    FilterAndFileOrder - this class is made for filtering and ordering the list of subsections that
+    i received and printing them out in the correct order and sorted and prints the correct errors
+    parseData - a class made to parse the data received from the file that user want us to parse by
+    subsectionHolder - a class meant to hold sub sections of the command file
+
+=============================
+=  Implementation details   =
+=============================
+    exceptions - all exceptions inherit from the exception class but are split into two categories
+    typeOne and typeTwo each one representing a different type of error
+    filters - all filters are children of the Filter<Path> interface putting them in the decorator design
+    while creating a certain filter for the type of sorting all of the inheriting classes decorate the
+    parent class the only difference of filters is the size filters since the implementations are so
+    different they implement an interface instead. there is a factory of a singleton type to create a filter
+    orders - all inherit from the comparator<Path> using the decorator design to add on and implement there
+    own function of compare there is a reverse compare to reverse the effect of a certain compare and a
+    factory of a singleton type exists to create factories
+    toolboxes - the are all put in there own package and of singleton type since that is the part of the
+    toolbox design they are put in there own package for future uses of the toolboxes and expanding
+    especially Sort which can get more types of sorting in the future
+    DirectoryProccesor - creates instances of the of the objects to parse and then filter out the data
+    FilterAndFileOrder - this class has three function one to get the filter one filters filters it one to
+    get the order and order it by calling the sorting function tool box
+    Parse data - this class will read file lines and parse them into sub sections so we can filter the
+    files in a much simpler way
+    subsectionholder - this class receives data about the certain sub section we are dealing with
+    giving us an object that is easy to work with when we need to actually analyze a certain section
+    this object comes very useful for finding simple information about the object
+
+=============================
+=    Answers to questions   =
+=============================
+1. why did i choose quick sort?
+it is a very easy sort to implement its expectancy is nlog(n) and it sorts on the spot instead of
+creating new arrays and sorting them saving memory space when it comes to big amounts of files
+2. the hierarchy i choose to deal with my exceptions was that the toolboxes would throw my exceptions
+which either the factory raised towards the parser or filterandorders type two exceptions got raised all
+the way to the main stop the program from running and type one exceptions were handled in the filters and
+orders class and dealt with there by using default values i choose this design so that if its a type
+two error it would stop the system and a type one error would know how to take care of it and
+continue running
+3. i sorted the match files using quick sort my answer for why i used it is explained above
+i used the data structure of array list since it has dynamic size  on the one hand and on the
+other hand it is vey easy to accesses a value in a certain location
